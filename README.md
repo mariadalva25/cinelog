@@ -37,7 +37,7 @@ classDiagram
         +deletarComentario(Avaliacao avaliacao)
     }
 
-    %% Relações Corretas
+    
     Filme "1" <-- "*" Avaliacao : Pertence a
     FuncionFilme --> Filme : Gerencia
     Avaliar --> Avaliacao : Gerencia
