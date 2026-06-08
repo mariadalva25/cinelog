@@ -1,0 +1,7 @@
+.list-group-item {
+  transition: background-color 0.15s ease;
+}
+
+.titulo-input {
+  max-width: 120px;
+}
