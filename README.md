@@ -1,51 +1,69 @@
+# 🎬 CineLog
 
-## Funcionalidades
-- Cadastrar filmes e séries 
-- listar filmes/séries
-- Editar
-- Avaliar e comentar
-- Deletar 
-  ## Class do  dominío
- - Filme 
+Sistema de cadastro e avaliação de filmes desenvolvido com:
+
+- Frontend: HTML, CSS, JavaScript + Bootstrap
+- Backend: Node.js + SQLite
+- Arquitetura: API REST simples
+
+---
+
+## 🚀 Funcionalidades
+
+- Cadastrar filmes ou séries
+- Listar filmes/séries
+- Editar filmes
+- Remover filmes
+- Cadastrar usuários
+- Avaliar e comentar filmes
+- Editar e remover avaliações
+
+---
+
+## 🧩 Classes do Domínio
+
+- Filme
+- Usuário
 - Avaliação
-## Relacionamento
-   *Filme existe sem Avaliaçao, mas avaliação não existe sem filme. / Composição*
 
+---
 
+## 🔗 Relacionamentos
+
+- Um Filme pode ter várias Avaliações
+- Um Usuário pode fazer várias Avaliações
+- Avaliação pertence a um Filme e a um Usuário
+
+👉 Filme pode existir sem Avaliação  
+👉 Avaliação não existe sem Filme nem Usuário  
+
+---
+
+## 📊 Diagrama de Classes (UML)
 
 ```mermaid
 classDiagram
-    class Filme {
-        +String nome
-        +String genero
-    }
 
-    class Avaliacao {
-        +String comentario
-        +int nota
-        +Filme filme
-    }
+class Usuario {
+    +int id
+    +String nome
+    +String email
+}
 
-    class FuncionFilme {
-        +adicionarFilme(Filme filme)
-        +listarFilme()
-        +deletarFilme(Filme filme)
-    }
+class Filme {
+    +int id
+    +String titulo
+    +String genero
+    +int ano
+}
 
-    class Avaliar {
-        +criarAvaliacao(String comentario, int nota, Filme filme)
-        +deletarComentario(Avaliacao avaliacao)
-    }
+class Avaliacao {
+    +int id
+    +String comentario
+    +int nota
+    +int usuarioId
+    +int filmeId
+}
 
-    
-    Filme "1" <-- "*" Avaliacao : Pertence a
-    FuncionFilme --> Filme : Gerencia
-    Avaliar --> Avaliacao : Gerencia
-
-
-```
-```
-- Filme e Avaliacao: São apenas Entidades. A única responsabilidade delas é definir quais dados pertencem a um filme e a uma avaliação.
-- FuncionFilme: Tem a responsabilidade única de gerenciar(adicionar, listar e deletar). Ela não cria regras de validação de notas ou textos de comentários.
-- Avaliar: Tem a responsabilidade única de armazenar e gerenciar a lógica de avaliações (criar e limpar os comentários do banco/memória).
-```
+Usuario "1" <-- "*" Avaliacao : escreve
+Filme "1" <-- "*" Avaliacao : recebe
