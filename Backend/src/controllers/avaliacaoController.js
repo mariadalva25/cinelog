@@ -6,6 +6,7 @@ export const avaliacaoController = {
     res.json(avaliacao);
   },
 
+
   buscarPorId(req, res) {
     const avaliacao = avaliacaoService.buscarPorId(Number(req.params.id));
     res.json(avaliacao);

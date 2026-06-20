@@ -7,7 +7,7 @@ function criarLinha(usuario, aoRemover) {
 
   const texto = document.createElement('span');
   const email = usuario.email ? ` · ${usuario.email}` : '';
-  texto.textContent = `#${usuario.id} — ${usuario.nome} (CPF: ${usuario.cpf})${email}`;
+  texto.textContent = `#${usuario.id} — ${usuario.nome}${email}`;
 
   const btn = document.createElement('button');
   btn.className = 'btn btn-sm btn-outline-danger';

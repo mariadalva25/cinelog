@@ -3,7 +3,7 @@ import { usuarioController } from '../controllers/usuarioController.js';
 
 const router = Router();
 
-router.get('/',    usuarioController.listarTodos);
+router.get('/',    usuarioController.listarTodas);
 router.get('/:id', usuarioController.buscarPorId);
 router.post('/',   usuarioController.criar);
 router.put('/:id', usuarioController.atualizar);

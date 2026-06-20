@@ -29,10 +29,10 @@ export const api = {
   removerUsuario(id)   { return request(`/usuario/${id}`, { method: 'DELETE' }); },
 
   // ---- Filme ----
-  getFilmes()          { return request('/filmes'); },
-  criarFilme(dados)    { return request('/filmes', { method: 'POST', body: JSON.stringify(dados) }); },
-  atualizarFilme(id, dados) { return request(`/filmes/${id}`, { method: 'PUT', body: JSON.stringify(dados) }); },
-  removerFilme(id)     { return request(`/filmes/${id}`, { method: 'DELETE' }); },
+  getFilmes()          { return request('/filme'); },
+  criarFilme(dados)    { return request('/filme', { method: 'POST', body: JSON.stringify(dados) }); },
+  atualizarFilme(id, dados) { return request(`/filme/${id}`, { method: 'PUT', body: JSON.stringify(dados) }); },
+  removerFilme(id)     { return request(`/filme/${id}`, { method: 'DELETE' }); },
 
   // ---- Avaliação ----
   getAvaliacao()          { return request('/avaliacao'); },

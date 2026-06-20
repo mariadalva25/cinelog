@@ -2,7 +2,7 @@
 import { api } from '../api.js';
 
 export const filmeService = {
-  listar() {
+  listarTodas() {
     return api.getFilmes();
   },
 

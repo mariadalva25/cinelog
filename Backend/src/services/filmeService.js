@@ -1,13 +1,13 @@
 import { filmeModel } from '../models/filme.js';
 
 export const filmeService = {
-  // 🔑 CORRIGIDO: Nome alterado para o padrão masculino 'listarTodos'
-  listarTodos(filmeId) {
+
+  listarTodas(filmeId) {
     if (filmeId) {
       return filmeModel.buscarPorId(Number(filmeId));
     }
-    return filmeModel.listarTodos(); // Garanta que no seu filmeModel o nome seja listarTodos ou listarTodas
-  },
+    return filmeModel.listarTodas(); 
+   },
 
   buscarPorId(id) {
     const filme = filmeModel.buscarPorId(id);

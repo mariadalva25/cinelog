@@ -1,8 +1,8 @@
 import { usuarioModel } from '../models/usuario.js';
 
 export const usuarioService = {
-  listarTodos() {
-    return usuarioModel.listarTodos();
+  listarTodas() {
+    return usuarioModel.listarTodas();
   },
 
   buscarPorId(id) {

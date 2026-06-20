@@ -1,12 +1,14 @@
 import express from 'express';
+import cors from 'cors';
 import usuarioRouter from './routes/usuario.js';
 import filmeRouter from './routes/filme.js';
 import avaliacaoRouter from './routes/avaliacao.js';
 import { logger } from './middleware/logger.js';
 import { errorHandler } from './middleware/errorHandler.js';
 
-const app = express();
 
+const app = express();
+app.use(cors());           // habilita CORS para todas as rotas
 app.use(express.json());   // parseia JSON no body
 app.use(logger);           // loga toda requisição
 
@@ -22,5 +24,7 @@ app.get('/', (req, res) => {
     rotas: ['/usuario', '/filme', '/avaliacao'],
   });
 });
+
+app.use(errorHandler);
 
 export default app;

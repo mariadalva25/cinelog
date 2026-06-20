@@ -1,8 +1,8 @@
 import { usuarioService } from '../services/usuarioService.js';
 
 export const usuarioController = {
-  listarTodos(req, res) {
-    const usuarios = usuarioService.listarTodos();
+  listarTodas(req, res) {
+    const usuarios = usuarioService.listarTodas();
     res.json(usuarios);
   },
 

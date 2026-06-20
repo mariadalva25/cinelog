@@ -1,6 +1,7 @@
 import { usuarioService } from './services/usuarioService.js';
 import { filmeService } from './services/filmeService.js';
 import { avaliacaoService } from './services/avaliacaoService.js';
+
 import { usuarioView } from './ui/usuarioView.js';
 import { filmeView } from './ui/filmeView.js';
 import { avaliacaoView } from './ui/avaliacaoView.js';
@@ -17,11 +18,10 @@ function limparErro() {
   alerta.textContent = '';
 }
 
-// ---- Usuários ----
+// ---------------- USUÁRIOS ----------------
 async function atualizarUsuarios() {
-  const usuarios = await usuarioService.listar();
+  const usuarios = await usuarioService.listarTodas();
   usuarioView.renderLista(usuarios, removerUsuario);
-  // O dropdown de avaliações depende dos usuários cadastrados
   avaliacaoView.preencherSelectUsuarios(usuarios);
 }
 
@@ -31,8 +31,8 @@ async function criarUsuario(dados) {
     await usuarioService.criar(dados);
     usuarioView.limparForm();
     await atualizarUsuarios();
-  } catch (err) { 
-    mostrarErro(err.message); 
+  } catch (err) {
+    mostrarErro(err.message);
   }
 }
 
@@ -41,18 +41,16 @@ async function removerUsuario(id) {
   try {
     await usuarioService.remover(id);
     await atualizarUsuarios();
-    // Atualiza as avaliações pois o autor pode ter sido removido
-    await atualizarAvaliacoes(); 
-  } catch (err) { 
-    mostrarErro(err.message); 
+    await atualizarAvaliacoes();
+  } catch (err) {
+    mostrarErro(err.message);
   }
 }
 
-// ---- Filmes ----
+// ---------------- FILMES ----------------
 async function atualizarFilmes() {
-  const filmes = await filmeService.listar();
+  const filmes = await filmeService.listarTodas();
   filmeView.renderLista(filmes, removerFilme);
-  // O dropdown de avaliações também depende dos filmes cadastrados
   avaliacaoView.preencherSelectFilmes(filmes);
 }
 
@@ -62,8 +60,8 @@ async function criarFilme(dados) {
     await filmeService.criar(dados);
     filmeView.limparForm();
     await atualizarFilmes();
-  } catch (err) { 
-    mostrarErro(err.message); 
+  } catch (err) {
+    mostrarErro(err.message);
   }
 }
 
@@ -72,67 +70,62 @@ async function removerFilme(id) {
   try {
     await filmeService.remover(id);
     await atualizarFilmes();
-    // Atualiza as avaliações pois o filme avaliado pode ter sido removido
     await atualizarAvaliacoes();
-  } catch (err) { 
-    mostrarErro(err.message); 
+  } catch (err) {
+    mostrarErro(err.message);
   }
 }
 
-// ---- Avaliações (Comentários) ----
+// ---------------- AVALIAÇÕES ----------------
 async function atualizarAvaliacoes() {
-  const avaliacoes = await avaliacaoService.listar();
+  const avaliacoes = await avaliacaoService.listarTodas();
   avaliacaoView.renderLista(avaliacoes, editarComentario, removerAvaliacao);
 }
 
 async function criarAvaliacao(dados) {
   limparErro();
   try {
-    await avaliacaoService.criar(dados);
+    await avaliacaoService.criarAvaliacao(dados);
     avaliacaoView.limparForm();
     await atualizarAvaliacoes();
-  } catch (err) { 
-    mostrarErro(err.message); 
+  } catch (err) {
+    mostrarErro(err.message);
   }
 }
 
-async function editarComentario(id, comentario) {
+async function editarComentario(id, dados) {
   limparErro();
   try {
-    await avaliacaoService.atualizar(id, comentario);
+    await avaliacaoService.atualizarAvaliacao(id, dados);
     await atualizarAvaliacoes();
-  } catch (err) { 
-    mostrarErro(err.message); 
+  } catch (err) {
+    mostrarErro(err.message);
   }
 }
 
 async function removerAvaliacao(id) {
   limparErro();
   try {
-    await avaliacaoService.remover(id);
+    await avaliacaoService.removerAvaliacao(id);
     await atualizarAvaliacoes();
-  } catch (err) { 
-    mostrarErro(err.message); 
+  } catch (err) {
+    mostrarErro(err.message);
   }
 }
 
-// ---- Inicialização de Ouvintes de Eventos (Submit / Ações) ----
+// ---------------- EVENTOS ----------------
 usuarioView.onSubmit(criarUsuario);
 filmeView.onSubmit(criarFilme);
-
 avaliacaoView.onSubmit(criarAvaliacao);
-// Garanta que sua view possua estas escutas ou trate-as diretamente no renderLista
-if (typeof avaliacaoView.onEditComentario === 'function') avaliacaoView.onEditComentario(editarComentario);
-if (typeof avaliacaoView.onRemove === 'function') avaliacaoView.onRemove(removerAvaliacao);
 
-// ---- Inicialização da Aplicação ----
+// ---------------- INICIALIZAÇÃO ----------------
 async function iniciar() {
   try {
-    await atualizarUsuarios();   // Carrega usuários e preenche select-usuarios
-    await atualizarFilmes();     // Carrega filmes e preenche select-filmes
-    await atualizarAvaliacoes(); // Carrega e renderiza a lista de comentários
+    await atualizarUsuarios();
+    await atualizarFilmes();
+    await atualizarAvaliacoes();
   } catch (err) {
-    mostrarErro('Não consegui falar com a API. O backend está rodando na porta correta? O CORS está habilitado?');
+    mostrarErro('Erro ao conectar com a API.');
     console.error(err);
   }
 }

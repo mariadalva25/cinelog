@@ -1,14 +1,13 @@
 import { avaliacaoModel } from '../models/avaliacao.js';
 
 export const avaliacaoService = {
-  listarTodos() {
-    return avaliacaoModel.listarTodos();
+  listarTodas() {
+    return avaliacaoModel.listarTodas();
   },
 
  
-  criar({ nota, comentario, usuarioId, filmeId }) {
-    // Validação estendida para garantir que todos os campos obrigatórios existem
-    if (!nota || !comentario || !usuarioId || !filmeId) {
+   criar({ nota, comentario, usuarioId, filmeId }) {
+    if (nota === undefined || nota === null || !comentario || !usuarioId || !filmeId) {
       const err = new Error('Campos "nota", "comentario", "usuarioId" e "filmeId" são obrigatórios');
       err.status = 400;
       throw err;
@@ -16,7 +15,7 @@ export const avaliacaoService = {
  
     return avaliacaoModel.inserir({ nota, comentario, usuarioId, filmeId });
   },
-
+ 
   atualizar(id, dados) {
     const atualizado = avaliacaoModel.atualizar(id, dados);
     if (!atualizado) {

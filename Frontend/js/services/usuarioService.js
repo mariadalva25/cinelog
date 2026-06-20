@@ -2,7 +2,7 @@
 import { api } from '../api.js';
 
 export const usuarioService = {
-  listar() {
+  listarTodas() {
     return api.getUsuario();
   },
 

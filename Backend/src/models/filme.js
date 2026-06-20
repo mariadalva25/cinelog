@@ -1,31 +1,48 @@
-let filme = [];
-let nextId = 1;
+import { db } from '../db.js';
 
 export const filmeModel = {
-  listarTodos() {
-    return filme;
+  listarTodas() {
+    return db.prepare('SELECT * FROM filme').all();
   },
 
   buscarPorId(id) {
-    return filme.find(f => f.id === id) || null;
+    return db.prepare('SELECT * FROM filme WHERE id = ?').get(id) || null;
   },
 
   inserir({ titulo, ano, genero }) {
-    const novo = { id: nextId++, titulo, ano: Number(ano), genero: genero || null };
-    filme.push(novo);
-    return novo;
+    const r = db.prepare(
+      `INSERT INTO filme (titulo, ano, genero, criada_em)
+       VALUES (?, ?, ?, ?)`
+    ).run(
+      titulo,
+      Number(ano),
+      genero || null,
+      new Date().toISOString()
+    );
+
+    return this.buscarPorId(r.lastInsertRowid);
   },
 
   atualizar(id, dados) {
-    const idx = filme.findIndex(f => f.id === id);
-    if (idx === -1) return null;
-    filme[idx] = { ...filme[idx], ...dados, id };
-    return filme[idx];
+    const atual = this.buscarPorId(id);
+    if (!atual) return null;
+
+    const novo = { ...atual, ...dados, id };
+
+    db.prepare(
+      'UPDATE filme SET titulo = ?, ano = ?, genero = ? WHERE id = ?'
+    ).run(
+      novo.titulo,
+      novo.ano,
+      novo.genero ?? null,
+      id
+    );
+
+    return this.buscarPorId(id);
   },
 
   remover(id) {
-    const tamanhoAntes = filme.length;
-    filme = filme.filter(f => f.id !== id);
-    return filme.length < tamanhoAntes;
+    const r = db.prepare('DELETE FROM filme WHERE id = ?').run(id);
+    return r.changes > 0;
   },
 };
