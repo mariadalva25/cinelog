@@ -1,1 +1,1 @@
-const API = "https://cinelog-xh2s.onrender.com";
+export const API_URL = "https://cinelog-xh2s.onrender.com";
