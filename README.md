@@ -1,6 +1,6 @@
 
 ## Funcionalidades
-- Cadastrar filmes e séries 
+- Cadastrar filmes ou séries 
 - listar filmes/séries
 - Editar
 - Avaliar e comentar
@@ -14,10 +14,17 @@
 
 
 ```mermaid
+
 classDiagram
-    class Filme {
+class usuario {
         +String nome
+        +String email
+    }
+
+    class Filme {
+        +String titulo
         +String genero
+        +int ano
     }
 
     class Avaliacao {

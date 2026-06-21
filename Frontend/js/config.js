@@ -1,1 +1,1 @@
-export const API_URL = 'http://localhost:3000';
+const API = "https://cinelog-xh2s.onrender.com";
