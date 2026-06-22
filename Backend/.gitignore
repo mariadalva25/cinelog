@@ -1,0 +1,6 @@
+# Dependências Node.js
+node_modules/
+Backend/node_modules/
+
+# Banco de dados
+banco.db

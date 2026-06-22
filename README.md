@@ -1,51 +1,174 @@
+# 🎬 CineLog
 
-## Funcionalidades
-- Cadastrar filmes e séries 
-- listar filmes/séries
-- Editar
-- Avaliar e comentar
-- Deletar 
-  ## Class do  dominío
- - Filme 
-- Avaliação
-## Relacionamento
-   *Filme existe sem Avaliaçao, mas avaliação não existe sem filme. / Composição*
+Sistema de cadastro e avaliação de filmes desenvolvido com:
 
+* Frontend: HTML, CSS, JavaScript + Bootstrap
+* Backend: Node.js + Express + SQLite
+* Arquitetura: API REST
 
+---
+
+## 🚀 Funcionalidades
+
+* Cadastrar usuários, filmes e séries
+* Listar usuários, filmes e séries
+* Editar registros
+* Deletar registros
+* Avaliar filmes e deixar comentários
+
+---
+
+## 🧠 Domínio do Sistema
+
+* **Filme**
+* **Usuário**
+* **Avaliação**
+
+---
+
+## 🔗 Relacionamentos
+
+* Um Filme pode ter várias Avaliações
+* Um Usuário pode fazer várias Avaliações
+* Avaliação pertence a um Filme e a um Usuário
+
+👉 Filme pode existir sem Avaliação
+👉 Avaliação não existe sem Filme nem Usuário
+
+---
+
+## 📊 Diagrama de Classes (UML)
 
 ```mermaid
 classDiagram
-    class Filme {
-        +String nome
-        +String genero
-    }
 
-    class Avaliacao {
-        +String comentario
-        +int nota
-        +Filme filme
-    }
+class Usuario {
+  +String nome
+  +String email
+}
 
-    class FuncionFilme {
-        +adicionarFilme(Filme filme)
-        +listarFilme()
-        +deletarFilme(Filme filme)
-    }
+class Filme {
+  +String titulo
+  +String genero
+}
 
-    class Avaliar {
-        +criarAvaliacao(String comentario, int nota, Filme filme)
-        +deletarComentario(Avaliacao avaliacao)
-    }
+class Avaliacao {
+  +String comentario
+  +int nota
+  +int usuarioId
+  +int filmeId
+}
 
-    
-    Filme "1" <-- "*" Avaliacao : Pertence a
-    FuncionFilme --> Filme : Gerencia
-    Avaliar --> Avaliacao : Gerencia
-
-
+Usuario "1" --> "*" Avaliacao : escreve
+Filme "1" --> "*" Avaliacao : recebe
 ```
+
+---
+
+## ⚙️ Como executar o projeto
+
+### 🖥️ Backend (Node.js)
+
+Entrar na pasta do backend:
+
+```bash id="b1"
+cd Backend
 ```
-- Filme e Avaliacao: São apenas Entidades. A única responsabilidade delas é definir quais dados pertencem a um filme e a uma avaliação.
-- FuncionFilme: Tem a responsabilidade única de gerenciar(adicionar, listar e deletar). Ela não cria regras de validação de notas ou textos de comentários.
-- Avaliar: Tem a responsabilidade única de armazenar e gerenciar a lógica de avaliações (criar e limpar os comentários do banco/memória).
+
+Instalar dependências:
+
+```bash id="b2"
+npm install
 ```
+
+Rodar o servidor:
+
+```bash id="b3"
+node src/server.js
+```
+
+ou:
+
+```bash id="b4"
+npm start
+```
+
+Servidor roda em:
+
+```text id="b5"
+http://localhost:3000
+```
+
+---
+
+### 🌐 Frontend (HTML/JS)
+
+Abrir o arquivo:
+
+```text id="f1"
+Frontend/index.html
+```
+
+Ou usar extensão **Live Server** no VS Code.
+
+---
+
+## 🚀 Deploy
+
+### Backend (API)
+
+* Hospedado no Render
+* URL: https://cinelog-xh2s.onrender.com
+
+### Frontend
+
+* Hospedado no Vercel
+* URL: https://cine-log-chi.vercel.app
+
+---
+
+## 🔗 Comunicação Front + Back
+
+No frontend, a API deve apontar para:
+
+```javascript id="api1"
+const API = "https://cinelog-xh2s.onrender.com";
+```
+
+❌ Não usar:
+
+```text id="api2"
+localhost
+```
+
+---
+
+## 📦 Tecnologias utilizadas
+
+* Node.js
+* Express
+* SQLite
+* HTML
+* CSS
+* JavaScript
+* Bootstrap
+* Render
+* Vercel
+
+---
+
+## 👩‍💻 Autora
+
+Maria Dalva de Oliveira Gomes
+Graduanda em Ciência da Computação – UEPB
+
+---
+
+## ⭐ Observação
+
+Este projeto foi desenvolvido com foco em:
+
+* Prática de API REST
+* Integração frontend e backend
+* Deploy de aplicações reais
+* Organização de arquitetura web moderna
