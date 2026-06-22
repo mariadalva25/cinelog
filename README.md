@@ -1,6 +1,6 @@
 # 🎬 CineLog
 
-Sistema de cadastro e avaliação de filmes desenvolvido com:
+ Sistema de cadastro e avaliação de filmes desenvolvido com:
 
 * Frontend: HTML, CSS, JavaScript + Bootstrap
 * Backend: Node.js + Express + SQLite
